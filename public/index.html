@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Socket.io-teacher</title>
+	<link href="./css/style.css" rel="stylesheet" type="text/css" />  
+</head>
+<body>
+	<div class="demo">	
+	<h1>jquery-example<span id ="online"></span></h1>
+	<!-- 图片文件名要求：小图s128x96，大图s720x540 -->	
+	<div id="preview">	
+		<div id="spec-n1">
+			<div class="o-img">
+				<img alt="" src="images/s720x540_XtDL7D3SY6QJGHzc.JPG" onerror="this.src='images/none_347.gif'"  />
+			</div>
+			<div class="switch">
+				<a id="foward">&nbsp;</a>
+				<a id="next">&nbsp;</a>
+			</div>													
+		</div><!--spec-n1 end-->
+		
+		<div id="spec-n5">
+			<div id="spec-top" class="control disabled"></div>
+			<div id="spec-bottom" class="control"></div>
+			<div id="spec-list">
+				<ul id="spec-ul">
+					<!--<li class="curr"><img width="128" height="96" name="images/s128x96_XtDL7D3SY6QJGHzc.JPG" alt="宾得（PENTAX） K-5（DA 18-55mm F3.5-5.6 AL WR） 单反套机（黑色）"  title="皇后湾灯塔" src="images/s128x96_XtDL7D3SY6QJGHzc.JPG"/></li>
+					
+					<li><img width="128" height="96" name="images/s128x96_DV33SrtGF0EkrA3F.JPG" alt="宾得（PENTAX） K-5（DA 18-55mm F3.5-5.6 AL WR） 单反套机（黑色）"  title="白云之上" src="images/s128x96_DV33SrtGF0EkrA3F.JPG"/></li>
+					
+					<li><img width="128" height="96" name="images/s128x96_boiCqhjGmojNGguS.JPG" alt="宾得（PENTAX） K-5（DA 18-55mm F3.5-5.6 AL WR） 单反套机（黑色）"  title="大东海霞光" src="images/s128x96_boiCqhjGmojNGguS.JPG"/></li>
+					
+					<li><img width="128" height="96" name="images/s128x96_Gpsv0Kx15IEcJi7E.JPG" alt="宾得（PENTAX） K-5（DA 18-55mm F3.5-5.6 AL WR） 单反套机（黑色）"  title="皇后湾浅滩" src="images/s128x96_Gpsv0Kx15IEcJi7E.JPG"/></li>
+					
+					<li><img width="128" height="96" name="images/s128x96_Jku0EImlopNsh65J.JPG" alt="宾得（PENTAX） K-5（DA 18-55mm F3.5-5.6 AL WR） 单反套机（黑色）"  title="香水湾滩头" src="images/s128x96_Jku0EImlopNsh65J.JPG"/></li>-->															
+				</ul>
+			</div><!--spec-n5 end-->
+		</div>
+		
+		<div id="intro">皇后湾灯塔</div>
+		
+	</div><!--preview end-->
+	<!--demo end-->
+											
+	<div class="thickdiv" style="display:none;"></div>
+	<div class="thickbox" style="width:272px;height:90px;display:none;">
+		<div style="width:250" class="thicktitle">
+			<span>提示</span>
+		</div>
+		<div style="width:250px;height:40px;" id="" class="thickcon">已经到最后一张了！</div>
+		<a class="thickclose" href="#">×</a>
+	</div>
+	<script type="text/javascript" src="./js/jQuery.js"></script>
+	<script type="text/javascript" src="./js/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="./socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="./js/socket.js"></script>
+    <script>
+		
+	    $(document).ready(function() {
+
+	        var socket=io.connect('http://172.16.208.9:4001');
+	        
+
+	         //发送图片
+	         //
+	         $("#spec-list ul").click(function(){
+	         	var msg = $(".o-img img").attr('src');
+	         	// console.log(msg)
+	            if (msg) {
+	                socket.emit('postSlide', msg); //把消息发送到服务器
+	            };
+	         })
+	         // $("#spec-list ul").click(function(){
+	         // 	var msg = $(".o-img img").attr('src');
+	         // 	console.log(msg)
+	         //    if (msg) {
+	         //        socket.emit('postSlide', msg); //把消息发送到服务器
+	         //    };
+	         // })
+
+	         $(".switch").click(function(){
+	         	var msg = $(".o-img img").attr('src');
+	            if (msg) {
+	                socket.emit('postSlide', msg); //把消息发送到服务器
+	            };
+	         	
+	         })
+
+	    })
+	</script>																				
+</body>
+</html>
